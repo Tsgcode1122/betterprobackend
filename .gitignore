@@ -1,0 +1,15 @@
+# Environment variables
+.env
+
+# Node modules
+node_modules/
+
+# Ignore other generated files
+*.log
+*.tmp
+*.out
+
+# Ignore any large files or binaries
+/path/to/chrome-binaries/
+# Ignore Puppeteer cache directory
+.cache/
