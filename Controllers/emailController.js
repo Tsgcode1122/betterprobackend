@@ -19,7 +19,7 @@ exports.formSubmission = async (req, res) => {
     // Send email with inquiry details to falolatosin
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "falolatosin8@gmail.com",
+      to: "contact@thebetterhomepros.com",
       subject: "New Inquiry Received",
       text: `
         Hello, you just received an inquiry form from ${name}.
@@ -78,7 +78,7 @@ exports.emailSubscriber = async (req, res) => {
     // Notify falolatosin about the new subscriber
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "falolatosin8@gmail.com",
+      to: "contact@thebetterhomepros.com",
       subject: "New Subscriber Alert",
       text: `
         Hello,
