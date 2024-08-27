@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 
 // Handle form submissions
 exports.formSubmission = async (req, res) => {
-  const { name, email, service, message } = req.body;
+  const { name, email, service, message, zip } = req.body;
 
   try {
     // Send email with inquiry details to falolatosin
@@ -26,16 +26,20 @@ exports.formSubmission = async (req, res) => {
         Here are the details:
         
         Email: ${email}
+           Zip Code: ${zip}
         Service: ${service}
         Message: ${message}
+     
       `,
       html: `
         <p>Hello, you just received an inquiry form from <strong>${name}</strong>.</p>
         <p>Here are the details:</p>
         <ul>
           <li>Email: ${email}</li>
+                 <li>Zip Code: ${zip}</li>
           <li>Service: ${service}</li>
           <li>Message: ${message}</li>
+   
         </ul>
       `,
     });
