@@ -19,7 +19,7 @@ exports.formSubmission = async (req, res) => {
     // Send email with inquiry details to falolatosin
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "contact@thebetterhomepros.com",
+      to: "contact@thebetterhomepros.com, amiscott27@gmail.com",
       subject: "New Inquiry Received",
       text: `
         Hello, you just received an inquiry form from ${name}.
