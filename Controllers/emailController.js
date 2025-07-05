@@ -14,7 +14,8 @@ const transporter = nodemailer.createTransport({
 // Handle form submissions
 exports.formSubmission = async (req, res) => {
   const { name, email, number, service, message, zip, coupon } = req.body;
-
+  const couponMessage =
+    coupon && coupon.trim() !== "" ? coupon : "No coupon code";
   try {
     // Send email with inquiry details to falolatosin
     await transporter.sendMail({
@@ -30,7 +31,7 @@ exports.formSubmission = async (req, res) => {
         Phone-Number: ${number}
            Zip Code: ${zip}
         Service: ${service}
-        Coupon: ${coupon}
+        Coupon: ${couponMessage}
         Message: ${message}
      
       `,
@@ -42,7 +43,7 @@ exports.formSubmission = async (req, res) => {
           <li>Phone-Number: ${number}</li>
                  <li>Zip Code: ${zip}</li>
           <li>Service: ${service}</li>
-          <li>Coupon: ${coupon}</li>
+          <li>Coupon: ${couponMessage}</li>
           <li>Message: ${message}</li>
    
         </ul>
