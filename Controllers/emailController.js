@@ -13,13 +13,14 @@ const transporter = nodemailer.createTransport({
 
 // Handle form submissions
 exports.formSubmission = async (req, res) => {
-  const { name, email, number, service, message, zip } = req.body;
+  const { name, email, number, service, message, zip, coupon } = req.body;
 
   try {
     // Send email with inquiry details to falolatosin
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "contact@thebetterhomepros.com, amiscott27@gmail.com",
+      to: "tsgcode201@gmail.com",
+      // to: "contact@thebetterhomepros.com, amiscott27@gmail.com",
       subject: "New Inquiry Received",
       text: `
         Hello, you just received an inquiry form from ${name}.
@@ -29,6 +30,7 @@ exports.formSubmission = async (req, res) => {
         Phone-Number: ${number}
            Zip Code: ${zip}
         Service: ${service}
+        Coupon: ${coupon}
         Message: ${message}
      
       `,
@@ -40,6 +42,7 @@ exports.formSubmission = async (req, res) => {
           <li>Phone-Number: ${number}</li>
                  <li>Zip Code: ${zip}</li>
           <li>Service: ${service}</li>
+          <li>Coupon: ${coupon}</li>
           <li>Message: ${message}</li>
    
         </ul>
