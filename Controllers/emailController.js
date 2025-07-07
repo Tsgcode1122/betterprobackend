@@ -103,13 +103,12 @@ exports.createBooking = async (req, res) => {
       subject: "Booking Confirmation - Better Home Pros",
       html: `
         <h3>Thank you for your booking!</h3>
-        <p>Service: ${service}</p>
-        <p>Date: ${formattedDate}</p>
-        <p>Time: ${formattedTime}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p>We will contact you soon!</p>
       `,
     });
-
     res.status(200).json({ message: "Booking successful!" });
   } catch (error) {
     console.error(error);

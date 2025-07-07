@@ -17,14 +17,7 @@ const emailRoutes = require("./routes/emailRoutes");
 
 // app use
 app.get("/", (req, res) => res.send("hello Tsg"));
-// Basic CORS setup
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Allow your frontend origin
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }),
-);
+
 app.use("/api/email", emailRoutes);
 
 // Start server
