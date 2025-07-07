@@ -82,7 +82,7 @@ exports.createBooking = async (req, res) => {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
 
-      to: "Tsgcode201@gmail.com",
+      to: "contact@thebetterhomepros.com, amiscott27@gmail.com",
       subject: `New Booking for ${service}`,
       html: `
         <h3>New Booking Received</h3>
