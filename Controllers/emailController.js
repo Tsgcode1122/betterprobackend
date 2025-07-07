@@ -66,7 +66,17 @@ exports.formSubmission = async (req, res) => {
 // Handle email subscription
 exports.createBooking = async (req, res) => {
   const { fullName, phone, email, date, time, comment, service } = req.body;
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
+  const formattedTime = new Date(time).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
   try {
     // Email to Admin
     await transporter.sendMail({
@@ -80,8 +90,8 @@ exports.createBooking = async (req, res) => {
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Service:</strong> ${service}</p>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p><strong>Comment:</strong> ${comment || "None"}</p>
       `,
     });
@@ -94,8 +104,8 @@ exports.createBooking = async (req, res) => {
       html: `
         <h3>Thank you for your booking!</h3>
         <p>Service: ${service}</p>
-        <p>Date: ${date}</p>
-        <p>Time: ${time}</p>
+        <p>Date: ${formattedDate}</p>
+        <p>Time: ${formattedTime}</p>
         <p>We will contact you soon!</p>
       `,
     });
