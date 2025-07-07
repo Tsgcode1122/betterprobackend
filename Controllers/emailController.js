@@ -64,52 +64,45 @@ exports.formSubmission = async (req, res) => {
 };
 
 // Handle email subscription
-exports.emailSubscriber = async (req, res) => {
-  const { email } = req.body;
+exports.createBooking = async (req, res) => {
+  const { fullName, phone, email, date, time, comment, service } = req.body;
 
   try {
-    // Send confirmation email to the subscriber
+    // Email to Admin
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+
+      to: "Tsgcode201@gmail.com",
+      subject: `New Booking for ${service}`,
+      html: `
+        <h3>New Booking Received</h3>
+        <p><strong>Name:</strong> ${fullName}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Comment:</strong> ${comment || "None"}</p>
+      `,
+    });
+
+    // Confirmation to Customer
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Thank You for Subscribing",
-      text: `
-        Hello,
-        Thank you for subscribing to our mailing list.
-        We will keep you updated with our latest news and offers.
-      `,
+      subject: "Booking Confirmation - Better Home Pros",
       html: `
-        <p>Hello,</p>
-        <p>Thank you for subscribing to our mailing list.</p>
-        <p>We will keep you updated with our latest news and offers.</p>
+        <h3>Thank you for your booking!</h3>
+        <p>Service: ${service}</p>
+        <p>Date: ${date}</p>
+        <p>Time: ${time}</p>
+        <p>We will contact you soon!</p>
       `,
     });
 
-    // Notify falolatosin about the new subscriber
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: "contact@thebetterhomepros.com",
-      subject: "New Subscriber Alert",
-      text: `
-        Hello,
-        You have a new subscriber.
-        Here is the email: ${email}
-      `,
-      html: `
-        <p>Hello,</p>
-        <p>You have a new subscriber.</p>
-        <p>Here is the email: <strong>${email}</strong></p>
-      `,
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "Subscription and notification emails sent successfully",
-    });
+    res.status(200).json({ message: "Booking successful!" });
   } catch (error) {
-    console.error("Error sending subscription email:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to send subscription email" });
+    console.error(error);
+    res.status(500).json({ message: "Booking failed. Please try again." });
   }
 };
